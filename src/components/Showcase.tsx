@@ -169,14 +169,15 @@ export const Showcase: FC<ShowcaseOwnProps> = ({
       return "";
     }
     const { x, y } = position;
-    const amplitude =
+    const amplitude = Math.max(
+      0.6,
       1 -
       [x, y]
         .map((it) => Math.abs(it - 0.5))
-        .reduce((acc, it) => Math.max(it, acc), 0) /
-        0.5;
+        .reduce((acc, it) => Math.max(it, acc), 0) / 0.5
+    );
+    
     const gradientAmplitude = amplitude * 100;
-    const fuzzyAmplitude = gradientAmplitude * 0.9;
     const gradient = [
       "radial-gradient",
       "(",
@@ -186,8 +187,7 @@ export const Showcase: FC<ShowcaseOwnProps> = ({
           [x, y].map((it) => `${it * 100}%`).join(" ")
         ].join(" "),
         "transparent",
-        `transparent ${fuzzyAmplitude}%`,
-        `#fff2 ${gradientAmplitude}%`
+        `#fff3 ${gradientAmplitude}%`
       ].join(", "),
       ")"
     ].join("");
